@@ -5,6 +5,7 @@
 // making new post type
 function university_post_types()
 {
+    // EVENT POST TYPE
     // first argument is the type name
     register_post_type('event', [
         'has_archive' => true,
@@ -26,6 +27,28 @@ function university_post_types()
             'singular_name' => 'Event'
         ],
         'menu_icon' => 'dashicons-calendar'
+    ]);
+
+    // PROGRAM POST TYPE
+    register_post_type('program', [
+        'has_archive' => true,
+        'show_in_rest' => true,
+        'public' => true,
+        'rewrite' => [
+            'slug' => 'programs'
+        ],
+        'supports' => [
+            'title',
+            'editor',
+        ],
+        'labels' => [
+            'name' => 'Programs',
+            'add_new_item' => 'Add New Programs',
+            'edit_item' => 'Edit Programs',
+            'all_items' => 'All Programs',
+            'singular_name' => 'Program'
+        ],
+        'menu_icon' => 'dashicons-awards'
     ]);
 };
 

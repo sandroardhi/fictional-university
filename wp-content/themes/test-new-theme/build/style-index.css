@@ -733,6 +733,8 @@ body.login {
 @media (min-width: 960px) {
   .site-header__menu-trigger {
     display: none;
+    visibility: hidden;
+    opacity: 0;
   }
 }
 .site-header__util {
