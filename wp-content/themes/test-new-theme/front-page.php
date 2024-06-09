@@ -26,9 +26,23 @@
             <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
 
             <?php
+            $today = date('Ymd');
             $homepageEvents = new WP_Query([
                 'posts_per_page' => 2,
-                'post_type' => 'event'
+                'post_type' => 'event',
+                'order' => 'ASC',
+                // this is how we orderby post by custom field named event_date
+                'meta_key' => 'event_date',
+                'orderby' => 'meta_value_num',
+                // custom meta query, like some kind of filter for this query, this specific query is for filtering post that are already past
+                'meta_query' => [
+                    [
+                        'key' => 'event_date',
+                        'compare' => '>=',
+                        'value' => $today,
+                        'type' => 'numeric'
+                    ]
+                ]
             ]);
 
             while ($homepageEvents->have_posts()) {
