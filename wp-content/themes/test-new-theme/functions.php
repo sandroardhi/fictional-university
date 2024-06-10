@@ -22,6 +22,11 @@ add_action('wp_enqueue_scripts', 'university_files');
 function university_features()
 {
     add_theme_support('title-tag');
+    // for featured image
+    add_theme_support('post-thumbnails');
+    add_image_size('professorLandscape', 400, 260, true);
+    add_image_size('professorPortrait', 480, 650, true);
+    add_image_size('pageBanner', 1500, 350, true);
     // for dynamic menu in wordpress admin page, first argument for its location (used in the html like this wp_nav_menu(['theme_location' => 'headerMenuLocation'])) the second argument is for the one in wordpress admin (like a description)
     register_nav_menu('headerMenuLocation', 'Header Menu Location');
     register_nav_menu('footerLocationOne', 'Footer Location One');
