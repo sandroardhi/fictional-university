@@ -13,6 +13,8 @@ function university_files()
     wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
     //  SCRIPT
+    // for google map frontend
+    wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=AIzaSyAJdQ7thzDqYP3X-5hxZRcnBsQPHDpotdQ', null, '1.0', true);
     // the argument is name for this queue, the getter funvtion for the js file, is there dependencies for that file, the version of the script (idk what this means), and boolean for 'do you want to render this script in the bottom of the html or in the head?' true for bottom
     wp_enqueue_script('main-university-js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
 }
@@ -60,6 +62,11 @@ function university_adjust_queries($query)
         $query->set('orderby', 'title');
         $query->set('order', 'ASC');
     };
+
+    // for post type campus' archive
+    if (!is_admin() && is_post_type_archive('campus') && $query->is_main_query()) {
+        $query->set('posts_per_page', -1);
+    };
 };
 
 add_action('pre_get_posts', 'university_adjust_queries');
@@ -92,3 +99,10 @@ function pageBanner($args = null)
         </div>
     </div>
 <?php }
+
+// for adding api key to the Advanced Custom Field Google Maps Api field
+function universityMapKey($api) {
+    $api['key'] = 'AIzaSyAJdQ7thzDqYP3X-5hxZRcnBsQPHDpotdQ';
+    return $api;
+}
+add_filter('acf/fields/google_map/api', 'universityMapKey');
