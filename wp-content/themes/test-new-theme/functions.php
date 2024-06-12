@@ -110,3 +110,15 @@ function universityMapKey($api) {
     return $api;
 }
 add_filter('acf/fields/google_map/api', 'universityMapKey');
+
+
+// this is for customizing rest api call
+function university_custom_rest() {
+    // here we want to add a custom field for post type posts, the custom field is the name of the author of that post
+    register_rest_field('post', 'authorName', [
+        'get_callback' => function () {
+            return get_the_author();
+        }
+    ]);
+}
+add_action('rest_api_init', 'university_custom_rest');
