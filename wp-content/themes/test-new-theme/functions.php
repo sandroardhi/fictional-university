@@ -17,6 +17,10 @@ function university_files()
     wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=AIzaSyAJdQ7thzDqYP3X-5hxZRcnBsQPHDpotdQ', null, '1.0', true);
     // the argument is name for this queue, the getter funvtion for the js file, is there dependencies for that file, the version of the script (idk what this means), and boolean for 'do you want to render this script in the bottom of the html or in the head?' true for bottom
     wp_enqueue_script('main-university-js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
+
+    wp_localize_script('main-university-js', 'universityData', [
+        'root_url' => get_site_url()
+    ]);
 }
 
 add_action('wp_enqueue_scripts', 'university_files');
